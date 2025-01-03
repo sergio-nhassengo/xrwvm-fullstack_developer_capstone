@@ -40,6 +40,16 @@ def login_user(request):
         data = {"userName": username, "status": "Authenticated"}
     return JsonResponse(data)
 
+# Create a `logout_request` view to handle sign out request
+def logout_request(request):
+    logout(request)
+    data = {"userName":""}
+    return JsonResponse(data)
+
+# Create a `registration` view to handle sign up request
+# @csrf_exempt
+# def registration(request):
+# ...
 
 def get_cars(request):
     count = CarMake.objects.filter().count()
@@ -76,6 +86,8 @@ def get_dealer_reviews(request, dealer_id):
     # if dealer id has been provided
     if(dealer_id):
         endpoint = "/fetchReviews/dealer/"+str(dealer_id)
+        print("_")
+        print(endpoint)
         reviews = get_request(endpoint)
         for review_detail in reviews:
             response = analyze_review_sentiments(review_detail['review'])
@@ -84,6 +96,7 @@ def get_dealer_reviews(request, dealer_id):
         return JsonResponse({"status":200,"reviews":reviews})
     else:
         return JsonResponse({"status":400,"message":"Bad Request"})
+
 
 def add_review(request):
     if(request.user.is_anonymous == False):

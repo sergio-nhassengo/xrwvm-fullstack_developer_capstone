@@ -26,11 +26,11 @@ REACT_BUILD_DIR = os.path.join(os.path.dirname(__file__), '..', 'frontend', 'bui
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', TemplateView.as_view(template_name="index.html")),
+    path('register/', TemplateView.as_view(template_name="index.html")),
     path('djangoapp/', include('djangoapp.urls')),
     path('', TemplateView.as_view(template_name="Home.html")),
     path('about/', TemplateView.as_view(template_name="About.html")),
     path('contact/', TemplateView.as_view(template_name="Contact.html")),
     re_path(r'^.*$', TemplateView.as_view(template_name="index.html"), name='react'),
-    # path('dealers/', TemplateView.as_view(template_name="index.html")),
-    # re_path('dealers/', TemplateView.as_view(template_name=os.path.join(REACT_BUILD_DIR, 'index.html'))),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
